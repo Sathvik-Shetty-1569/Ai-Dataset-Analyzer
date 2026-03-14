@@ -1,5 +1,6 @@
 import streamlit as st
 from analyzer import analyze_dataset, plot_histograms, correlation_matrix
+from ai_agent import ask_ai
 
 st.title("AI Dataset Analyzer")
 
@@ -29,3 +30,11 @@ if uploaded_file:
 
     for fig in histograms:
         st.pyplot(fig)
+    
+    st.subheader("Ask Questions About Your Dataset")
+
+question = st.text_input("Ask something about the dataset")
+
+if question:
+    answer = ask_ai(question, results)
+    st.write(answer)
