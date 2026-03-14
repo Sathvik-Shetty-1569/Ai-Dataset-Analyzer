@@ -1,6 +1,9 @@
 import streamlit as st
-from analyzer import analyze_dataset, plot_histograms, correlation_matrix
-from ai_agent import ask_ai
+from core.analyzer import analyze_dataset, plot_histograms, correlation_matrix
+from agents.ai_agent import generate_code
+from core.analyzer import analyze_dataset
+from core.code_executor import run_code
+from utils.clean_code import clean_ai_code
 
 st.title("AI Dataset Analyzer")
 
@@ -33,8 +36,23 @@ if uploaded_file:
     
     st.subheader("Ask Questions About Your Dataset")
 
-question = st.text_input("Ask something about the dataset")
+st.subheader("AI Data Analysis")
+
+question = st.text_input("Ask a data analysis question")
 
 if question:
-    answer = ask_ai(question, results)
-    st.write(answer)
+
+    code = generate_code(question, df.columns)
+    code = clean_ai_code(code)
+    
+    with st.expander("Show AI Generated Code"):
+        st.code(code, language="python")
+
+    result = run_code(code, df)
+    
+    if isinstance(result, dict):
+        if "plt" in result:
+            st.pyplot(result["plt"])
+            
+    st.subheader("Execution Result")
+    st.write(result)
