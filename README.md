@@ -1,11 +1,12 @@
 # PRISM — AI Dataset Analyzer
 > One dataset. Every angle.
+![PRISM Screenshot](Screenshot.png)
 
 Upload any CSV and ask questions in plain English. 
 PRISM uses Gemini 2.5 Flash to analyze your data, detect patterns, 
 recommend ML models, and answer questions by writing and executing code.
 
-**Live demo →** https://your-app.streamlit.app
+**Live demo →** https://use-prism.streamlit.app/
 
 ## Features
 - AI-generated dataset summary on upload
